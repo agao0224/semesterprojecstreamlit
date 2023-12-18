@@ -3,10 +3,6 @@ import numpy as np
 import streamlit as st
 import plotly.express as px
 
-import seaborn as sns
-from matplotlib import pyplot as plt
-import matplotlib.pyplot as plt
-
 st.title('Top Players in each Decade')
 
 df = pd.read_csv('nbadata.csv')
@@ -43,7 +39,10 @@ st.dataframe(selected_decade_df)
 
 def univariate_stats(df,gen_charts):
   #Step 1 generate output dataframe
-
+  import pandas as pd
+  import seaborn as sns
+  from matplotlib import pyplot as plt
+  import matplotlib.pyplot as plt
   output_df = pd.DataFrame(columns=['Count','Null' ,'Unique', 'Type', 'Min', 'Max', '25%', '50%', '75%', 'Mean', 'Mode', 'Std', 'Skew', 'Kurt'])
 
   #Step 2 iterate through columns in df
