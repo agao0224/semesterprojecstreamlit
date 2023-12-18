@@ -1,7 +1,7 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import numpy as np
 import streamlit as st
+import plotly.express as px
 
 st.title('Top Players in each Decade')
 
@@ -46,9 +46,9 @@ def univariate_stats(df, col):
                 round(df[col].mode()[0], 2), df[col].std(), df[col].skew(), df[col].kurt()]
         output_df.loc[col] = oRow
 
-        fig, ax = plt.subplots()
+        fig, ax = px.subplots()
         ax.text(max(df[col]) + (max(df[col]) / 10), 54, f'Kurtosis is {df[col].kurt()}\nSkew is {df[col].skew()}')
-        sns.histplot(data=df, x=col, ax=ax)
+        px.histplot(data=df, x=col, ax=ax)
         st.pyplot(fig)
 
     else:
@@ -56,9 +56,9 @@ def univariate_stats(df, col):
                 '-', df[col].mode()[0], '-', '-']
         output_df.loc[col] = oRow
 
-        fig, ax = plt.subplots()
+        fig, ax = px.subplots()
         ax.set_xticks(rotation=45)
-        sns.countplot(data=df, x=col, palette="Greens_d", order=df[col].value_counts().iloc[:6].index, ax=ax)
+        px.countplot(data=df, x=col, palette="Greens_d", order=df[col].value_counts().iloc[:6].index, ax=ax)
         st.pyplot(fig)
 
     return output_df
