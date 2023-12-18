@@ -65,9 +65,11 @@ def univariate_stats(df, gen_charts):
 
 df_filtered = df.drop(columns=['PLAYER_ID', 'PLAYER', 'TEAM', 'TEAM_ID'])
 
-st.title('LOL')
-selected_column = st.selectbox('Select a column', df_filtered.columns)
+st.title('NBA Stats Distributions')
+selected_stat = st.selectbox('Select a statistic', df_filtered.columns)
+generate_chart = st.checkbox('Generate Chart')
 
-# # Display the distribution for the selected column
-output = univariate_stats(df_filtered, selected_column)
-st.write('Summary Stats:', output)
+# Display the distribution for the selected statistic
+if selected_stat:
+    output = univariate_stats(df_filtered, selected_stat, generate_chart)
+    st.write('Summary Stats:', output)
