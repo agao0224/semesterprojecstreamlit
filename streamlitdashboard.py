@@ -64,5 +64,5 @@ st.title('NBA Statistics Distribution')
 selected_column = st.selectbox('Select a column', df_filtered.columns)
 
 # Display the distribution for the selected column
-if st.button('Generate Stats and Chart'):
+if st.button('Generate Chart'):
     output = univariate_stats(df_filtered, selected_column, True)
