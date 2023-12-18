@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 import plotly.express as px
 
-st.title('Popular Names')
+st.title('Top Players in each Decade')
 
 df = pd.read_csv('nbadata.csv')
 
@@ -31,7 +31,10 @@ top_players_2000 = df[df['YEAR'] == 2000].nsmallest(10, 'RANK')
 
 merged_df = [top_players_2020, top_players_2010, top_players_2000, top_players_2000]
 
-top_10_players = pd.concat([top_players_2020, top_players_2010], axis = 0)
+#top_10_players = pd.concat([top_players_2020, top_players_2010, top_players_2000], axis = 0)
+
+selected_decade = st.selectbox('Select a decade', [2020, 2010, 2000])
+selected_decade_df = df[df['YEAR'] == selected_decade]
 
 st.write(f'Top 10 in players in {selected_year}:')
-st.dataframe(top_10_players)
+st.dataframe(selected_decade_df)
