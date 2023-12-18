@@ -38,30 +38,32 @@ selected_decade_df = top_10_players[top_10_players['YEAR'] == selected_decade]
 st.write(f'Top 10 players in {selected_decade}:')
 st.dataframe(selected_decade_df)
 
-def univariate_stats(df, gen_charts):
-     for col in df:
-         if pd.api.types.is_numeric_dtype(df[col]):
-             oRow = [df[col].count(), df[col].isna().sum(), df[col].nunique(), df[col].dtype, df[col].min(), df[col].max(),
-                     df[col].quantile(0.25), df[col].median(), df[col].quantile(0.75), round(df[col].mean(), 2),
-                     round(df[col].mode()[0], 2), df[col].std(), df[col].skew(), df[col].kurt()]
+def univariate_stats(df, col, gen_charts):
+    if pd.api.types.is_numeric_dtype(df[col]):
+        oRow = [df[col].count(), df[col].isna().sum(), df[col].nunique(), df[col].dtype, df[col].min(), df[col].max(),
+                df[col].quantile(0.25), df[col].median(), df[col].quantile(0.75), round(df[col].mean(), 2),
+                round(df[col].mode()[0], 2), df[col].std(), df[col].skew(), df[col].kurt()]
 
-             if gen_charts:
-                 fig = px.histogram(df, x=col, title=f'Histogram for {col}')
-                 st.plotly_chart(fig)
+        if gen_charts:
+            fig = px.histogram(df, x=col, title=f'Histogram for {col}')
+            st.plotly_chart(fig)
 
-         else:
-             oRow = [df[col].count(), df[col].isna().sum(), df[col].nunique(), df[col].dtype, '-', '-', '-', '-', '-',
-                     '-', df[col].mode()[0], '-', '-']
+    else:
+        oRow = [df[col].count(), df[col].isna().sum(), df[col].nunique(), df[col].dtype, '-', '-', '-', '-', '-',
+                '-', df[col].mode()[0], '-', '-']
 
-             if gen_charts:
-                 fig = px.bar(df[col].value_counts().iloc[:6], title=f'Count Plot for {col}')
-                 st.plotly_chart(fig)
+        if gen_charts:
+            fig = px.bar(df[col].value_counts().iloc[:6], title=f'Count Plot for {col}')
+            st.plotly_chart(fig)
+
+    return oRow
 
 df_filtered = df.drop(columns=['PLAYER_ID', 'PLAYER', 'TEAM', 'TEAM_ID'])
 
 st.title('LOL')
 selected_column = st.selectbox('Select a column', df_filtered.columns)
 
-# # Display the distribution for the selected column
-output = univariate_stats(df_filtered, True)
-st.write('Summary Stats:', output)
+# Display the distribution for the selected column
+if st.button('Generate Stats and Chart'):
+    output = univariate_stats(df_filtered, selected_column, True)
+    st.write('Summary Stats:', output)
