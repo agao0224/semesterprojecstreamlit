@@ -38,5 +38,5 @@ top_10_players = pd.concat(merged_df)
 
 #top_names = pd.concat([fnames, mnames], axis = 0) 
 
-st.write(f'Top 10 in {selected_year}:')
+st.write(f'Top 10 players in {selected_year}:')
 st.dataframe(top_10_players)
