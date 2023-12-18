@@ -46,7 +46,6 @@ def univariate_stats(df, gen_charts):
              oRow = [df[col].count(), df[col].isna().sum(), df[col].nunique(), df[col].dtype, df[col].min(), df[col].max(),
                      df[col].quantile(0.25), df[col].median(), df[col].quantile(0.75), round(df[col].mean(), 2),
                      round(df[col].mode()[0], 2), df[col].std(), df[col].skew(), df[col].kurt()]
-             output_df.loc[col] = oRow
 
              if gen_charts:
                  fig = px.histogram(df, x=col, title=f'Histogram for {col}')
