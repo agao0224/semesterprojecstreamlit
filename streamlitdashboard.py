@@ -20,10 +20,6 @@ df.loc[:227, 'YEAR'] = 2020
 df.loc[228:413, 'YEAR'] = 2010
 df.loc[414:595, 'YEAR'] = 2000
 
-selected_year = st.selectbox('Select a year', df['YEAR'].unique())
-
-year_df = df[df['YEAR'] == selected_year]
-
 #Get the top 10 players in each decade
 top_players_2020 = df[df['YEAR'] == 2020].nsmallest(10, 'RANK')
 top_players_2010 = df[df['YEAR'] == 2010].nsmallest(10, 'RANK')
@@ -33,8 +29,8 @@ merged_df = [top_players_2020, top_players_2010, top_players_2000, top_players_2
 
 #top_10_players = pd.concat([top_players_2020, top_players_2010, top_players_2000], axis = 0)
 
-selected_decade = st.selectbox('Select a decade', [2020, 2010, 2000])
+selected_decade = st.selectbox('Select a decade', df['YEAR'].unique())
 selected_decade_df = df[df['YEAR'] == selected_decade]
 
-st.write(f'Top 10 in players in {selected_year}:')
+st.write(f'Top 10 in players in {selected_decade}:')
 st.dataframe(selected_decade_df)
