@@ -1,7 +1,7 @@
 import pandas as pd
-import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 import streamlit as st
-import plotly.express as px
 
 st.title('Top Players in each Decade')
 
@@ -38,10 +38,6 @@ st.write(f'Top 10 players in {selected_decade}:')
 st.dataframe(selected_decade_df)
 
 def univariate_stats(df, col):
-    import pandas as pd
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    import streamlit as st
     output_df = pd.DataFrame(columns=['Count', 'Null', 'Unique', 'Type', 'Min', 'Max', '25%', '50%', '75%', 'Mean', 'Mode', 'Std', 'Skew', 'Kurt'])
 
     if pd.api.types.is_numeric_dtype(df[col]):
@@ -65,12 +61,11 @@ def univariate_stats(df, col):
         sns.countplot(data=df, x=col, palette="Greens_d", order=df[col].value_counts().iloc[:6].index, ax=ax)
         st.pyplot(fig)
 
-    #step 7 output df
     return output_df
 
 df_filtered = df.drop(columns=['PLAYER_ID', 'PLAYER', 'TEAM', 'TEAM_ID'])
 
-st.title('LMAO')
+st.title('TESTING')
 selected_column = st.selectbox('Select a column', df_filtered.columns)
 
 # Display the distribution for the selected column
