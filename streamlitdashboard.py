@@ -25,12 +25,14 @@ top_players_2020 = df[df['YEAR'] == 2020].nsmallest(10, 'RANK')
 top_players_2010 = df[df['YEAR'] == 2010].nsmallest(10, 'RANK')
 top_players_2000 = df[df['YEAR'] == 2000].nsmallest(10, 'RANK')
 
-merged_df = [top_players_2020, top_players_2010, top_players_2000, top_players_2000]
+top_10_players = pd.concat([top_players_2020, top_players_2010, top_players_2000], axis=0)
 
-#top_10_players = pd.concat([top_players_2020, top_players_2010, top_players_2000], axis = 0)
+# Create a dropdown for selecting the decade
+selected_decade = st.selectbox('Select a decade', [2020, 2010, 2000])
 
-selected_decade = st.selectbox('Select a decade', df['YEAR'].unique())
-selected_decade_df = df[df['YEAR'] == selected_decade]
+# Filter data based on the selected decade
+selected_decade_df = top_10_players[top_10_players['YEAR'] == selected_decade]
 
-st.write(f'Top 10 in players in {selected_decade}:')
+# Display top 10 ranked players for the selected decade
+st.write(f'Top 10 players in {selected_decade}:')
 st.dataframe(selected_decade_df)
