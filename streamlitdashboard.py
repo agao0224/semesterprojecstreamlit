@@ -60,7 +60,7 @@ def univariate_stats(df, col, gen_charts):
 
 df_filtered = df.drop(columns=['PLAYER_ID', 'PLAYER', 'TEAM', 'TEAM_ID'])
 
-st.title('LOL')
+st.title('NBA Statistics Distribution')
 selected_column = st.selectbox('Select a column', df_filtered.columns)
 
 # Display the distribution for the selected column
