@@ -39,8 +39,6 @@ st.write(f'Top 10 players in {selected_decade}:')
 st.dataframe(selected_decade_df)
 
 def univariate_stats(df, gen_charts):
-     output_df = pd.DataFrame(columns=['Count', 'Null', 'Unique', 'Type', 'Min', 'Max', '25%', '50%', '75%', 'Mean', 'Mode', 'Std', 'Skew', 'Kurt'])
-
      for col in df:
          if pd.api.types.is_numeric_dtype(df[col]):
              oRow = [df[col].count(), df[col].isna().sum(), df[col].nunique(), df[col].dtype, df[col].min(), df[col].max(),
@@ -54,13 +52,10 @@ def univariate_stats(df, gen_charts):
          else:
              oRow = [df[col].count(), df[col].isna().sum(), df[col].nunique(), df[col].dtype, '-', '-', '-', '-', '-',
                      '-', df[col].mode()[0], '-', '-']
-             output_df.loc[col] = oRow
 
              if gen_charts:
                  fig = px.bar(df[col].value_counts().iloc[:6], title=f'Count Plot for {col}')
                  st.plotly_chart(fig)
-
-     return output_df
 
 df_filtered = df.drop(columns=['PLAYER_ID', 'PLAYER', 'TEAM', 'TEAM_ID'])
 
