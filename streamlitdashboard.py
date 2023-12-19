@@ -79,7 +79,7 @@ def generate_plot(statistic):
     # Adding data labels
     for trace in fig.data:
         fig.add_trace(
-            px.text(x=trace['x'], y=trace['y'], text=trace['y'], textposition='outside').data[0]
+            px.bar(combined_top_players, x=trace['x'], y=trace['y'], text=trace['y'], textposition='outside').data[0]
         )
 
     fig.update_layout(xaxis_title='Year', yaxis_title=f'Average {statistic}', barmode='group')
@@ -88,6 +88,7 @@ def generate_plot(statistic):
 # Streamlit app
 st.title('NBA Player Stats Comparison')
 
+# Dropdown for statistics
 statistic_options = ['PTS', 'AST', 'REB', 'FG_PCT', 'MIN', 'EFF', 'FG3_PCT', 'FG3M', 'GP']
 selected_statistic = st.selectbox('Select a Statistic', statistic_options)
 
