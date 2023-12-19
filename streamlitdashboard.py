@@ -71,18 +71,10 @@ if st.button('Generate Chart'):
 
 combined_top_players = pd.concat([top_players_2020, top_players_2010, top_players_2000])
 
-# Function to generate plots based on selected statistic
 def generate_plot(statistic):
     fig = px.bar(combined_top_players, x='YEAR', y=statistic, color='YEAR',
                  title=f'Average {statistic} of Top 10 Players at the Beginning of Each Decade')
-    
-    # Adding data labels
-    for trace in fig.data:
-        fig.add_trace(
-            px.bar(combined_top_players, x=trace['x'], y=trace['y'], text=trace['y'], textposition='outside').data[0]
-        )
-
-    fig.update_layout(xaxis_title='Year', yaxis_title=f'Average {statistic}', barmode='group')
+    fig.update_layout(xaxis_title='Year', yaxis_title=f'Average {statistic}')
     st.plotly_chart(fig)
 
 # Streamlit app
