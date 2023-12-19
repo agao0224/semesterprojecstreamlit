@@ -73,21 +73,10 @@ combined_top_players = pd.concat([top_players_2020, top_players_2010, top_player
 
 # Function to generate plots based on selected statistic
 def generate_plot(statistic):
-    decades = combined_top_players['YEAR'].unique()
-
-    plt.figure(figsize=(10, 6))
-    for decade in decades:
-        filtered_data = combined_top_players[combined_top_players['YEAR'] == decade]
-
-        average_stat = filtered_data.groupby('YEAR')[statistic].mean()
-
-        plt.plot(average_stat.index, average_stat.values, marker='o', label=f'{decade}s')
-
-    plt.title(f'Average {statistic} of Top 10 Players at the Beginning of Each Decade')
-    plt.ylabel(f'Average {statistic}')
-    plt.xlabel('Year')
-    plt.legend()
-    st.pyplot(plt)
+    fig = px.line(combined_top_players, x='YEAR', y=statistic, color='YEAR', markers=True,
+                  title=f'Average {statistic} of Top 10 Players at the Beginning of Each Decade')
+    fig.update_layout(xaxis_title='Year', yaxis_title=f'Average {statistic}')
+    st.plotly_chart(fig)
 
 # Streamlit app
 st.title('NBA Player Stats Comparison')
