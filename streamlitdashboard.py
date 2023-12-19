@@ -73,18 +73,17 @@ combined_top_players = pd.concat([top_players_2020, top_players_2010, top_player
 
 # Function to generate plots based on selected statistic
 def generate_plot(statistic):
-    fig = px.line(combined_top_players, x='YEAR', y=statistic, color='YEAR', markers=True,
-                  title=f'Average {statistic} of Top 10 Players at the Beginning of Each Decade')
-    fig.update_layout(xaxis_title='Year', yaxis_title=f'Average {statistic}')
+    fig = px.bar(combined_top_players, x='YEAR', y=statistic, color='YEAR',
+                 title=f'Average {statistic} of Top 10 Players at the Beginning of Each Decade')
+    
+    # Adding data labels
+    for trace in fig.data:
+        fig.add_trace(
+            px.text(x=trace['x'], y=trace['y'], text=trace['y'], textposition='outside').data[0]
+        )
+
+    fig.update_layout(xaxis_title='Year', yaxis_title=f'Average {statistic}', barmode='group')
     st.plotly_chart(fig)
 
 # Streamlit app
 st.title('NBA Player Stats Comparison')
-
-# Dropdown for statistics
-statistic_options = ['PTS', 'AST', 'REB', 'FG_PCT', 'MIN', 'EFF', 'FG3_PCT', 'FG3M', 'GP']
-selected_statistic = st.selectbox('Select a Statistic', statistic_options)
-
-# Generate plot on button click
-if st.button('Generate Plot'):
-    generate_plot(selected_statistic)
