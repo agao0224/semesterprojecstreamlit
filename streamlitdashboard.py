@@ -87,3 +87,10 @@ def generate_plot(statistic):
 
 # Streamlit app
 st.title('NBA Player Stats Comparison')
+
+statistic_options = ['PTS', 'AST', 'REB', 'FG_PCT', 'MIN', 'EFF', 'FG3_PCT', 'FG3M', 'GP']
+selected_statistic = st.selectbox('Select a Statistic', statistic_options)
+
+# Generate plot on button click
+if st.button('Generate Plot'):
+    generate_plot(selected_statistic)
